@@ -11,12 +11,14 @@
 </head>
 <body>
     <div class="container">
-        <h1>CSV/Excel File Upload</h1>
+        <img id="excelImage" src="https://i0.wp.com/www.randombrick.de/wp-content/uploads/2019/07/Excel-Logo.jpg?ssl=1" alt="Excel Logo">
+        <h1 class="text-center">CSV/Excel File Upload</h1>
         <form id="uploadForm" enctype="multipart/form-data">
-          <div class="form-group">
+          <div class="form-group text-center">
             <label for="fileInput">Choose CSV or Excel file:</label>
             <input type="file" class="form-control-file" id="fileInput" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
           </div>
+          
           <button type="submit" class="btn btn-primary">Upload</button>
         </form>
         <div id="tableContainer" class="mt-5">

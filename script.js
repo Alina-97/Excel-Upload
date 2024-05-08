@@ -1,5 +1,5 @@
 document.getElementById('uploadForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevent form submission
+    e.preventDefault(); 
     const fileInput = document.getElementById('fileInput');
     const file = fileInput.files[0];
 

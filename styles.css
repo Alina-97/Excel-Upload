@@ -1,6 +1,13 @@
 .container {
-    margin-top: 50px;
+    margin-top: 50px; 
+  }
+ body{
+    
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 #tableContainer {
     overflow-x: auto; 
   }
@@ -14,10 +21,20 @@
     text-align: left;
   }
  
-#uploadForm {
+#uploadFormContainer  {
     width: 100%;
     max-width: 400px; 
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.8); 
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #excelImage {
+    position: absolute; 
+    top: 20px;
+    left: 20px; 
+    width: 100px; 
+    z-index: -1;
   }

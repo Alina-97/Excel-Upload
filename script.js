@@ -7,22 +7,15 @@ document.getElementById('uploadForm').addEventListener('submit', function(e) {
       const reader = new FileReader();
       reader.onload = function(event) {
         const content = event.target.result;
-        const extension = file.name.split('.').pop().toLowerCase();
-        if (extension === 'csv') {
-          displayCSV(content);
-        } else if (extension === 'xls' || extension === 'xlsx') {
-          displayExcel(content);
-        } else {
-          alert('Unsupported file format.');
-        }
+        displayTable(content);
       };
-      reader.readAsBinaryString(file);
+      reader.readAsText(file);
     } else {
       alert('Please select a file.');
     }
   });
 
-  function displayCSV(content) {
+  function displayTable(content) {
     const tableContainer = document.getElementById('tableContainer');
     const lines = content.split('\n');
     const table = document.createElement('table');
@@ -45,12 +38,4 @@ document.getElementById('uploadForm').addEventListener('submit', function(e) {
     table.appendChild(tbody);
     tableContainer.innerHTML = '';
     tableContainer.appendChild(table);
-  }
-
-  function displayExcel(content) {
-    const workbook = XLSX.read(content, { type: 'binary' });
-    const sheet = workbook.Sheets[workbook.SheetNames[0]];
-    const tableContainer = document.getElementById('tableContainer');
-    const table = XLSX.utils.sheet_to_html(sheet, { editable: false });
-    tableContainer.innerHTML = table;
   }

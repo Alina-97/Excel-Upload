@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Upload and Display</title>
-    <!-- Include Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSV/Excel File Upload</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+
 </head>
 <body>
-    <div class="container mt-5">
-        <h1>File Upload and Display</h1>
-        <input type="file" id="fileInput">
-        <table class="table mt-3" id="dataTable">
-            <!-- Table content will be dynamically generated here -->
-        </table>
+  <div class="container">
+    <h1>CSV/Excel File Upload</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="fileInput">Choose CSV or Excel file:</label>
+        <input type="file" class="form-control-file" id="fileInput" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+      </div>
+      <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+
+    <div id="tableContainer" class="mt-5">
+      <!-- Table will be displayed here -->
     </div>
-    <!-- Include Bootstrap JS and your custom script -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="app.js"></script>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
-

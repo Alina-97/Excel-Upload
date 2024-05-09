@@ -8,6 +8,10 @@ body {
     justify-content: center;
     align-items: center;
 }
+.search-container,#tableContainer {
+    margin-top: 20px; 
+}
+
 
 #tableContainer {
     overflow-x: auto;
@@ -18,8 +22,7 @@ table {
     border-collapse: collapse;
 }
 
-th,
-td {
+th,td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;

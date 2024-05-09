@@ -20,7 +20,7 @@ document.getElementById('uploadForm').addEventListener('submit', function(e) {
                 alert('Unsupported file format.');
             }
 
-            // Show pagination and current page after document is loaded
+            // pagination
             document.getElementById('paginationContainer').style.display = 'block';
         };
         reader.onerror = function(event) {
@@ -85,10 +85,10 @@ function reloadTable() {
 function displayCSV(content, page, rowsPerPage) {
     const tableContainer = document.getElementById('tableContainer');
     const lines = content.split('\n');
-    totalRows = lines.length - 1; // subtract header row
+    totalRows = lines.length - 1; 
 
     const start = (page - 1) * rowsPerPage + 1;
-    const end = Math.min(page * rowsPerPage, totalRows) + 1;
+    const end = Math.min(page * rowsPerPage + 1, lines.length);
 
     const table = document.createElement('table');
     table.classList.add('table', 'table-striped');
@@ -115,13 +115,61 @@ function displayCSV(content, page, rowsPerPage) {
 function displayExcel(content, page, rowsPerPage) {
     const workbook = XLSX.read(content, { type: 'binary' });
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
-    totalRows = XLSX.utils.sheet_to_json(sheet).length;
+    const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+    totalRows = jsonData.length;
 
     const start = (page - 1) * rowsPerPage;
     const end = Math.min(page * rowsPerPage, totalRows);
 
     const tableContainer = document.getElementById('tableContainer');
     tableContainer.classList.add('table', 'table-striped');
-    const table = XLSX.utils.sheet_to_html(sheet, { range: start + ":" + end });
-    tableContainer.innerHTML = table;
+    const table = document.createElement('table');
+    const tbody = document.createElement('tbody');
+
+    for (let i = start; i < end; i++) {
+        const row = document.createElement('tr');
+
+        jsonData[i].forEach(cell => {
+            const cellElement = document.createElement('td');
+            cellElement.textContent = cell;
+            row.appendChild(cellElement);
+        });
+
+        tbody.appendChild(row);
+    }
+
+    table.appendChild(tbody);
+    tableContainer.innerHTML = '';
+    tableContainer.appendChild(table);
+}
+
+document.getElementById('searchButton').addEventListener('click', function() {
+    const searchValue = document.getElementById('searchInput').value.trim().toLowerCase();
+    filterTable(searchValue);
+});
+
+
+document.getElementById('searchInput').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        const searchValue = this.value.trim().toLowerCase();
+        filterTable(searchValue);
+    }
+});
+
+function filterTable(searchValue) {
+    const tableRows = document.querySelectorAll('#tableContainer table tbody tr');
+
+    tableRows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        let rowVisible = false;
+
+        cells.forEach(cell => {
+            if (cell.textContent.trim().toLowerCase().includes(searchValue)) {
+                rowVisible = true;
+            }
+        });
+
+        row.style.display = rowVisible ? '' : 'none';
+    });
 }

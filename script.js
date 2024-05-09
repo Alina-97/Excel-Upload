@@ -20,6 +20,8 @@ document.getElementById('uploadForm').addEventListener('submit', function(e) {
                 alert('Unsupported file format.');
             }
 
+            // Show the search container
+            $('.search-container').show();
             // pagination
             document.getElementById('paginationContainer').style.display = 'block';
         };
@@ -49,6 +51,19 @@ document.getElementById('nextPage').addEventListener('click', function() {
         currentPage++;
         document.getElementById('currentPage').textContent = currentPage;
         reloadTable();
+    }
+});
+
+document.getElementById('searchButton').addEventListener('click', function() {
+    const searchValue = document.getElementById('searchInput').value.trim().toLowerCase();
+    filterTable(searchValue);
+});
+
+
+document.getElementById('searchInput').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        const searchValue = this.value.trim().toLowerCase();
+        filterTable(searchValue);
     }
 });
 
@@ -85,10 +100,10 @@ function reloadTable() {
 function displayCSV(content, page, rowsPerPage) {
     const tableContainer = document.getElementById('tableContainer');
     const lines = content.split('\n');
-    totalRows = lines.length - 1; 
+    totalRows = lines.length - 1; // subtract header row
 
     const start = (page - 1) * rowsPerPage + 1;
-    const end = Math.min(page * rowsPerPage + 1, lines.length);
+    const end = Math.min(page * rowsPerPage + 1, lines.length); // Adjust end index to avoid skipping last row
 
     const table = document.createElement('table');
     table.classList.add('table', 'table-striped');
@@ -143,19 +158,6 @@ function displayExcel(content, page, rowsPerPage) {
     tableContainer.innerHTML = '';
     tableContainer.appendChild(table);
 }
-
-document.getElementById('searchButton').addEventListener('click', function() {
-    const searchValue = document.getElementById('searchInput').value.trim().toLowerCase();
-    filterTable(searchValue);
-});
-
-
-document.getElementById('searchInput').addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
-        const searchValue = this.value.trim().toLowerCase();
-        filterTable(searchValue);
-    }
-});
 
 function filterTable(searchValue) {
     const tableRows = document.querySelectorAll('#tableContainer table tbody tr');

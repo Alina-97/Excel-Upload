@@ -22,35 +22,36 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-10 offset-md-1">
+            <div class="col-md-5 offset-md-1">
                 <h1>CSV/Excel File Upload</h1>
                 <form id="uploadForm" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="fileInput">Choose CSV or Excel file:</label>
-                        <input type="file" class="form-control-file" id="fileInput" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                        <input type="file" class="form-control" id="fileInput" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                        <button type="submit" class="btn btn-primary mt-2">Upload</button>
                     </div>
-                    <button type="submit" class="btn btn-primary">Upload</button>
                 </form>
                 <!--Search Bar-->
-                <div class="search-container"></div>
-                <input type="text" id="searchInput" placeholder="Search...">
-                <button id="searchButton">Search</button>
+                <div class="search-container" style="display: none;">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search...">
+                    <button id="searchButton" class="form-control">Search</button>
+                </div>
+            </div>
+            <div class="col-md-10 offset-md-1">
                 <div id="tableContainer" class="mt-12"></div>
-               
                 <!--Pagination-->
                 <div id="paginationContainer" style="display: none;">
-                 <ul class="pagination">
-                 <li class="page-item" id="prevPage"><a class="page-link" href="#">Previous</a></li>
-                 <li class="page-item" id="nextPage"><a class="page-link" href="#">Next</a></li>
-                </ul>
-             <div>Current Page: <span id="currentPage">1</span></div>
-
-            </div>
+                    <ul class="pagination">
+                        <li class="page-item" id="prevPage"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item" id="nextPage"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                    <div>Current Page: <span id="currentPage">1</span></div>
+                </div>
             </div>
         </div>
     </div>
 
- 
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -27,7 +27,7 @@ th,td {
     padding: 8px;
     text-align: left;
 }
-
+/* 
 #uploadForm {
     width: 100%;
     max-width: 400px;
@@ -37,7 +37,7 @@ th,td {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
+} */
 
 #profilePic 
 { 

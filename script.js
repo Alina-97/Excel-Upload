@@ -19,6 +19,9 @@ document.getElementById('uploadForm').addEventListener('submit', function(e) {
             } else {
                 alert('Unsupported file format.');
             }
+
+            // Show pagination and current page after document is loaded
+            document.getElementById('paginationContainer').style.display = 'block';
         };
         reader.onerror = function(event) {
             console.error('File could not be read! Code ' + event.target.error.code);

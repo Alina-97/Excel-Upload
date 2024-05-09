@@ -21,7 +21,8 @@ document.getElementById('uploadForm').addEventListener('submit', function(e) {
             }
 
             // Show the search container
-            $('.search-container').show();
+            document.querySelector('.search-container').style.display = 'block';
+            
             // pagination
             document.getElementById('paginationContainer').style.display = 'block';
         };
@@ -100,10 +101,10 @@ function reloadTable() {
 function displayCSV(content, page, rowsPerPage) {
     const tableContainer = document.getElementById('tableContainer');
     const lines = content.split('\n');
-    totalRows = lines.length - 1; // subtract header row
+    totalRows = lines.length; 
 
-    const start = (page - 1) * rowsPerPage + 1;
-    const end = Math.min(page * rowsPerPage + 1, lines.length); // Adjust end index to avoid skipping last row
+    const start = (page - 1) * rowsPerPage;
+    const end = Math.min(page * rowsPerPage, totalRows); 
 
     const table = document.createElement('table');
     table.classList.add('table', 'table-striped');
@@ -132,10 +133,10 @@ function displayExcel(content, page, rowsPerPage) {
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
     const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-    totalRows = jsonData.length;
+    totalRows = jsonData.length; 
 
     const start = (page - 1) * rowsPerPage;
-    const end = Math.min(page * rowsPerPage, totalRows);
+    const end = Math.min(page * rowsPerPage, totalRows); 
 
     const tableContainer = document.getElementById('tableContainer');
     tableContainer.classList.add('table', 'table-striped');
@@ -145,10 +146,16 @@ function displayExcel(content, page, rowsPerPage) {
     for (let i = start; i < end; i++) {
         const row = document.createElement('tr');
 
-        jsonData[i].forEach(cell => {
-            const cellElement = document.createElement('td');
+        jsonData[i].forEach((cell, index) => {
+            const cellElement = document.createElement(index === 0 ? 'th' : 'td');
             cellElement.textContent = cell;
             row.appendChild(cellElement);
+
+            // If it's the first row, set header style
+            if (i === start) {
+                cellElement.style.fontWeight = 'bold';
+                cellElement.style.backgroundColor = 'lightgrey';
+            }
         });
 
         tbody.appendChild(row);
